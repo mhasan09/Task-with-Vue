@@ -1,45 +1,79 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker" />
-    <Tasks @delete-task="deleteTask" :tasks="tasks" />
+    <Header @toggle-add-task="toggleAddTask" title="Task Tracker" />
+    <div v-show="showAddTask">
+      <AddTask @addTask="addTask" />
+    </div>
+    <Tasks
+      @toggle-reminder="toggleReminder"
+      @delete-task="deleteTask"
+      :tasks="tasks"
+    />
   </div>
 </template>
 
 <script>
 import Header from "./components/header";
 import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 
 export default {
   name: "App",
   components: {
     Header,
     Tasks,
+    AddTask,
   },
   data() {
     return {
       tasks: [],
+      showAddTask: false,
     };
   },
   methods: {
+    addTask(task) {
+      this.tasks = [...this.tasks, task];
+    },
     deleteTask(id) {
       if (confirm("Are you sure?")) {
+        console.log(id);
         this.tasks = this.tasks.filter((task) => task.id !== id);
       }
+    },
+    toggleReminder(id) {
+      this.tasks = this.tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      );
+    },
+    toggleAddTask() {
+      this.showAddTask = !this.showAddTask;
     },
   },
   created() {
     this.tasks = [
       {
         id: 1,
-        text: "Sameha r sathe dekha",
+        text: " r sathe dekha",
         day: "15th June at 4:30 pm",
         reminder: true,
       },
       {
         id: 2,
-        text: "Nila r sathe dekha",
+        text: " r sathe dekha",
         day: "16th June at 4:30 pm",
         reminder: false,
+      },
+      {
+        id: 3,
+        text: "I r sathe dekha",
+        day: "15th June at 4:30 pm",
+        reminder: true,
+      },
+      {
+        id: 4,
+        text: "Homboi der sathe dekha",
+        day: "16th June at 4:30 pm",
+        reminder: true,
       },
     ];
   },
