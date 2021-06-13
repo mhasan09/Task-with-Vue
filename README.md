@@ -1,4 +1,4 @@
-# to-do-vue
+# Task Tracker
 
 ## Project setup
 ```
