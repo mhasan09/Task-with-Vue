@@ -25,13 +25,13 @@ export default {
     this.tasks = [
       {
         id: 1,
-        text: 'Nasta',
-        day: '15th June at 8:30 am',
+        text: 'Sameha r sathe dekha',
+        day: '15th June at 4:30 pm',
         reminder: true,
       },
       {
         id: 2,
-        text: 'Homboi der sathe dekha',
+        text: 'Nila r sathe dekha',
         day: '16th June at 4:30 pm',
         reminder: true,
       }
