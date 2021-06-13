@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker"/>
-    <Tasks :tasks="tasks"/>
+    <Header title="Task Tracker" />
+    <Tasks @delete-task="deleteTask" :tasks="tasks" />
   </div>
 </template>
 
@@ -13,42 +13,48 @@ export default {
   name: "App",
   components: {
     Header,
-    Tasks
-    
+    Tasks,
   },
   data() {
     return {
-      tasks: []
-    }
+      tasks: [],
+    };
+  },
+  methods: {
+    deleteTask(id) {
+      if (confirm("Are you sure?")) {
+        this.tasks = this.tasks.filter((task) => task.id !== id);
+      }
+    },
   },
   created() {
     this.tasks = [
       {
         id: 1,
-        text: 'Sameha r sathe dekha',
-        day: '15th June at 4:30 pm',
+        text: "Sameha r sathe dekha",
+        day: "15th June at 4:30 pm",
         reminder: true,
       },
       {
         id: 2,
-        text: 'Nila r sathe dekha',
-        day: '16th June at 4:30 pm',
-        reminder: true,
-      }
-    ]
-  }
+        text: "Nila r sathe dekha",
+        day: "16th June at 4:30 pm",
+        reminder: false,
+      },
+    ];
+  },
 };
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 .container {
   max-width: 500px;
@@ -82,6 +88,4 @@ body {
   display: block;
   width: 100%;
 }
-
-
 </style>
