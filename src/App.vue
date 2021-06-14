@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <Header @toggle-add-task="toggleAddTask" title="Task Tracker" :showAddTask="showAddTask"/>
+    <Header
+      @toggle-add-task="toggleAddTask"
+      title="Task Tracker"
+      :showAddTask="showAddTask"
+    />
     <div v-show="showAddTask">
       <AddTask @addTask="addTask" />
     </div>
@@ -48,34 +52,24 @@ export default {
     toggleAddTask() {
       this.showAddTask = !this.showAddTask;
     },
+    async fetchTasks() {
+      const res = await fetch('http://localhost:5000/tasks');
+      //const res = await fetch('api/tasks')
+      const data = await res.json()
+      console.log(res)
+      console.log(data)
+      return data
+    },
+    async fetchTask(id) {
+      const res = await fetch(`http://localhost:5000/tasks/${id}`);
+      //const res = await fetch(`api/tasks/${id}`);
+      const data = await res.json();
+      return data;
+    },
   },
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: " r sathe dekha",
-        day: "15th June at 4:30 pm",
-        reminder: true,
-      },
-      {
-        id: 2,
-        text: " r sathe dekha",
-        day: "16th June at 4:30 pm",
-        reminder: false,
-      },
-      {
-        id: 3,
-        text: "I r sathe dekha",
-        day: "15th June at 4:30 pm",
-        reminder: true,
-      },
-      {
-        id: 4,
-        text: "Homboi der sathe dekha",
-        day: "16th June at 4:30 pm",
-        reminder: true,
-      },
-    ];
+  async created() {
+    this.tasks = await this.fetchTasks();
+    console.log("1111cc");
   },
 };
 </script>
